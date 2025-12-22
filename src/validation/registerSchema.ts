@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$&!%*?])[A-Za-z\d@#$&!%*?]{8,}$/;
 
 const countryCodeRegex = /^[1-9][0-9]{0,3}$/;
 const mobileRegex = /^[1-9][0-9]{6,11}$/;
@@ -16,9 +16,7 @@ export const registerSchema = z
       .string()
       .regex(countryCodeRegex, "Invalid country code"),
 
-    mobile: z
-      .string()
-      .regex(mobileRegex, "Invalid mobile number"),
+    mobile: z.string().regex(mobileRegex, "Invalid mobile number"),
 
     password: z
       .string()

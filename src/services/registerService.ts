@@ -1,10 +1,7 @@
+import { RegisterRequest, RegisterResponse } from "../types/registerType";
 import { api } from "./api";
 
-export const registerService = async (data) => {
-  try {
-    const res = await api.post("/auth/register", data);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
+export const registerService = async (userData: RegisterRequest) => {
+  const res = await api.post<RegisterResponse>("/auth/register", userData);
+  return res.data;
 };

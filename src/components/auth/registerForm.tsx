@@ -1,35 +1,38 @@
 "use client";
 import { useRegister } from "@/src/hooks/useRegister";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { registerSchema } from "@/src/validation/registerSchema";
-
+import { RegisterRequest } from "@/src/types/registerType";
+import FormInput from "../shared/FormInput";
 
 const RegisterForm = () => {
-  type Inputs = {
-    name: string;
-    email: string;
-    password: string;
-    mobile: string;
-    password_confirmation: string;
-    mobile_country_code: string;
-  };
-
   const {
     register,
     handleSubmit,
-    watch,
+    setError,
     formState: { errors },
   } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
   });
 
   const { mutate, isPending } = useRegister();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    mutate(data);
+
+  const onSubmit: SubmitHandler<RegisterRequest> = (data) => {
+    mutate(data, {
+      onError: (error: unknown) => {
+        const backendErrors = (error as { response?: { data?: { errors?: Record<string, string[]> } } })?.response?.data?.errors;
+        if (backendErrors) {
+          Object.entries(backendErrors).forEach(([field, messages]) => {
+            setError(field as keyof RegisterRequest, {
+              type: "server",
+              message: messages.join(" "),
+            });
+          });
+        }
+      },
+    });
   };
 
   return (
@@ -38,69 +41,64 @@ const RegisterForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-5 w-full max-w-md mx-auto p-6 sm:p-8 bg-white rounded-xl shadow-md"
       >
-        <input
-          {...register("name", { required: true })}
-          placeholder="Full Name"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        {errors.name && (
-          <span className="text-sm text-red-500">{errors.name.message}</span>
-        )}
+        {/* Header */}
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold text-gray-900">
+            Create Account
+          </h1>
+        </div>
 
-        <input
-          {...register("email", { required: true })}
+        <FormInput
+          label="Full Name"
+          placeholder="Full Name"
+          register={register("name")}
+          error={errors.name}
+        />
+
+        <FormInput
+          label="email"
           type="email"
           placeholder="Email Address"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          register={register("email")}
+          error={errors.email}
         />
-        {errors.email && (
-         <span className="text-sm text-red-500">{errors.email.message}</span>
-        )}
 
-        <input
-          {...register("mobile", { required: true })}
-          type="tel"
+        <FormInput
+          label="Phone Number"
+          type="text"
           placeholder="Phone Number"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          register={register("mobile")}
+          error={errors.mobile}
         />
-        {errors.mobile && (
-         <span className="text-sm text-red-500">{errors.mobile.message}</span>
-        )}
 
-        <input
-          {...register("password", { required: true })}
-          type="text"
+        <FormInput
+          label="password"
+          type="password"
           placeholder="Password"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          register={register("password")}
+          error={errors.password}
         />
-        {errors.password && (
-          <span className="text-sm text-red-500">{errors.password.message}</span>
-        )}
 
-        <input
-          {...register("password_confirmation", { required: true })}
-          type="text"
-          placeholder="password Confirmation"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+        <FormInput
+          label="password_confirmation"
+          type="password"
+          placeholder="Confirm Password"
+          register={register("password_confirmation")}
+          error={errors.password_confirmation}
         />
-        {errors.password_confirmation && (
-          <span className="text-sm text-red-500">{errors.password_confirmation.message}</span>
-        )}
 
-        <input
-          {...register("mobile_country_code", { required: true })}
+        <FormInput
+          label="Mobile Country Code"
           placeholder="Mobile Country Code"
-          className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          register={register("mobile_country_code")}
+          error={errors.mobile_country_code}
         />
-        {errors.mobile_country_code && (
-          <span className="text-sm text-red-500">{errors.mobile_country_code.message}</span>
-        )}
 
         <input
           type="submit"
           value={isPending ? "Registering..." : "Register"}
-          disabled={isPending}
-          className="mt-2 bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition"
+          disabled={isPending || Object.keys(errors).length > 0}
+          className={`mt-2 bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition ${isPending || Object.keys(errors).length > 0 ? "opacity-50 cursor-not-allowed " : ""}`}
         />
       </form>
     </div>

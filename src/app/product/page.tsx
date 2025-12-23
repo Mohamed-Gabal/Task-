@@ -6,11 +6,11 @@ import Link from "next/link";
 import {
   Star,
   Heart,
-  ShoppingCart,
-  ChevronLeft,
   Minus,
   Plus,
 } from "lucide-react";
+import { Navbar } from "@/src/components/shared/Navbar";
+import { Footer } from "@/src/components/shared/Footer";
 
 interface Review {
   name: string;
@@ -115,60 +115,13 @@ const Page: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <button className="flex items-center text-gray-600 hover:text-gray-900 transition">
-              <ChevronLeft className="w-5 h-5" />
-              <span className="ml-1 font-medium">Back</span>
-            </button>
-
-            <nav className="hidden md:flex gap-8">
-              <Link
-                href="/"
-                className="text-gray-600 hover:text-gray-900 transition font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/shop"
-                className="text-gray-600 hover:text-gray-900 transition font-medium"
-              >
-                Shop
-              </Link>
-              <Link
-                href="/about"
-                className="text-gray-600 hover:text-gray-900 transition font-medium"
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="text-gray-600 hover:text-gray-900 transition font-medium"
-              >
-                Contact
-              </Link>
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition">
-                <Heart className="w-5 h-5 text-gray-700" />
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition">
-                <ShoppingCart className="w-5 h-5 text-gray-700" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Product Section */}
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Product Images */}
           <div className="space-y-4">
-            <div className="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden">
+            <div className="relative aspect-3/4 bg-gray-100 rounded-2xl overflow-hidden">
               <Image
                 src={productImages[selectedImage]}
                 alt="Product"
@@ -182,11 +135,10 @@ const Page: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`relative w-24 h-24 rounded-lg overflow-hidden border-2 transition ${
-                    selectedImage === idx
-                      ? "border-blue-500"
-                      : "border-gray-200"
-                  }`}
+                  className={`relative w-24 h-24 rounded-lg overflow-hidden border-2 transition ${selectedImage === idx
+                    ? "border-blue-500"
+                    : "border-gray-200"
+                    }`}
                 >
                   <Image
                     src={img}
@@ -250,11 +202,10 @@ const Page: React.FC = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-6 py-2 rounded-lg border-2 transition font-medium ${
-                      selectedSize === size
-                        ? "border-blue-500 bg-blue-50 text-blue-600"
-                        : "border-gray-200 hover:border-gray-300 text-gray-700"
-                    }`}
+                    className={`px-6 py-2 rounded-lg border-2 transition font-medium ${selectedSize === size
+                      ? "border-blue-500 bg-blue-50 text-blue-600"
+                      : "border-gray-200 hover:border-gray-300 text-gray-700"
+                      }`}
                   >
                     {size}
                   </button>
@@ -272,11 +223,10 @@ const Page: React.FC = () => {
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color.name)}
-                    className={`w-10 h-10 rounded-full border-2 transition-transform ${
-                      selectedColor === color.name
-                        ? "border-blue-500 scale-110"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
+                    className={`w-10 h-10 rounded-full border-2 transition-transform ${selectedColor === color.name
+                      ? "border-blue-500 scale-110"
+                      : "border-gray-300 hover:border-gray-400"
+                      }`}
                     style={{ backgroundColor: color.code }}
                     title={color.name}
                   >
@@ -369,11 +319,10 @@ const Page: React.FC = () => {
                           {[1, 2, 3, 4, 5].map((star) => (
                             <Star
                               key={star}
-                              className={`w-4 h-4 ${
-                                star <= review.rating
-                                  ? "fill-yellow-400 text-yellow-400"
-                                  : "text-gray-300"
-                              }`}
+                              className={`w-4 h-4 ${star <= review.rating
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-gray-300"
+                                }`}
                             />
                           ))}
                         </div>
@@ -423,112 +372,7 @@ const Page: React.FC = () => {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-bold text-xl mb-4">SHOP.CO</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                We have clothes that suits your style and which you're proud to
-                wear. From women to men.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>
-                  <Link href="/about" className="hover:text-white transition">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/features"
-                    className="hover:text-white transition"
-                  >
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/works" className="hover:text-white transition">
-                    Works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/career" className="hover:text-white transition">
-                    Career
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Help</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>
-                  <Link href="/support" className="hover:text-white transition">
-                    Customer Support
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/delivery"
-                    className="hover:text-white transition"
-                  >
-                    Delivery Details
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="hover:text-white transition">
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-white transition">
-                    Privacy Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>
-                  <Link href="/ebooks" className="hover:text-white transition">
-                    Free eBooks
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/tutorial"
-                    className="hover:text-white transition"
-                  >
-                    Development Tutorial
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-white transition">
-                    How to - Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/youtube" className="hover:text-white transition">
-                    Youtube Playlist
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 SHOP.CO. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

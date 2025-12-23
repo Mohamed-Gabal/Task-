@@ -14,7 +14,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       toast.success(data.message);
       localStorage.setItem("token", data.data.token);
-      router.push("/");
+      router.push("/product");
     },
   });
 };

@@ -1,19 +1,16 @@
 
 "use client";
-
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useLogin } from "@/src/hooks/useLogin";
 import { loginSchema } from "@/src/validation/loginSchema";
-import { LoginRequest } from "@/src/types/loginType";
-import FormInput from "../shared/FormInput";
+import FormInput from "../shared/ui/FormInput";
 
 type LoginInputs = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
-  const { mutate, isLoading } = useLogin();
+  const { mutate, isPending } = useLogin();
 
   const {
     register,
@@ -27,7 +24,7 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
     mutate(data, {
       onError: (error: any) => {
-        const backendErrors = error?.response?.data?.errors;
+        const backendErrors = (error as { response?: { data?: { errors?: Record<string, string[]> } } })?.response?.data?.errors;
         if (backendErrors) {
           Object.entries(backendErrors).forEach(([field, messages]) => {
             setError(field as keyof LoginInputs, {
@@ -68,13 +65,12 @@ const LoginForm = () => {
 
         <input
           type="submit"
-          value={isLoading ? "Logging in..." : "Login"}
-          disabled={isLoading || Object.keys(errors).length > 0}
-          className={`mt-2 bg-[#BE968E] text-white py-2 rounded-lg cursor-pointer hover:bg-[#A97F78] transition ${
-            isLoading || Object.keys(errors).length > 0
-              ? "opacity-50 cursor-not-allowed"
-              : ""
-          }`}
+          value={isPending ? "Logging in..." : "Login"}
+          disabled={isPending || Object.keys(errors).length > 0}
+          className={`mt-2 bg-[#BE968E] text-white py-2 rounded-lg cursor-pointer hover:bg-[#A97F78] transition ${isPending || Object.keys(errors).length > 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+            }`}
         />
       </form>
     </div>

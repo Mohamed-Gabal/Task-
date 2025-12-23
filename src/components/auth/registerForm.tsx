@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { registerSchema } from "@/src/validation/registerSchema";
 import { RegisterRequest } from "@/src/types/registerType";
-import FormInput from "../shared/FormInput";
+import FormInput from "../shared/ui/FormInput";
 
 const RegisterForm = () => {
   const {

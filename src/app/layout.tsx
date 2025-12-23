@@ -4,7 +4,6 @@ import "./globals.css";
 import QueryProvider from "../provider/QueryProvider";
 import { ToastContainer } from "react-toastify";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,10 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>
-            {children}
-        </QueryProvider>
         <ToastContainer />
+        <QueryProvider>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

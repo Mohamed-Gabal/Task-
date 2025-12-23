@@ -1,19 +1,20 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { loginService } from "../services/loginService";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { loginService } from "../services/loginService";
+import { LoginRequest, LoginResponse } from "../types/loginType";
 
 export const useLogin = () => {
   const router = useRouter();
-  return useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) =>
-      loginService(email, password),
+
+  return useMutation<LoginResponse, unknown, LoginRequest>({
+    mutationFn: (data: LoginRequest) => loginService(data),
     onSuccess: (data) => {
-      toast.success("Logged in Successfully!");
+      toast.success(data.message);
+      localStorage.setItem("token", data.data.token);
       router.push("/");
-      localStorage.setItem("token", data.token);
     },
   });
 };

@@ -1,10 +1,7 @@
-import { api } from "./api"
+import { api } from "./api";
+import { LoginRequest, LoginResponse } from "../types/loginType";
 
-export const loginService = async (email: string, password: string) => {
-  try {
-    const res = await api.post("/auth/login", {email, password})
-    return res.data
-  } catch (error) {
-    console.log(error)
-  }
-}
+export const loginService = async (userData: LoginRequest): Promise<LoginResponse> => {
+  const res = await api.post<LoginResponse>("/auth/login", userData);
+  return res.data;
+};

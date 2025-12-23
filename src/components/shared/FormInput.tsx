@@ -33,7 +33,7 @@ const FormInput = ({
           placeholder={placeholder}
           {...register}
           className={`w-full px-4 py-2 border rounded-lg outline-none
-          focus:ring-2 focus:ring-blue-500
+          focus:ring-2 focus:ring-[#BE968E] focus:border-[#BE968E]
           ${error ? "border-red-500" : "border-gray-300"}`}
         />
 

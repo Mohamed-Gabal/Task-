@@ -1,11 +1,22 @@
-import { Home, Grid3x3, Info, Mail, HelpCircle, ShoppingBag, Bell, Heart, ChevronDown, User } from "lucide-react";
+import {
+  Home,
+  Grid3x3,
+  Info,
+  Mail,
+  HelpCircle,
+  ShoppingBag,
+  Bell,
+  Heart,
+  ChevronDown,
+  User,
+} from "lucide-react";
 
 const NavLinks = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Our Category", href: "/category", icon: Grid3x3 },
-  { name: "About Us", href: "/about", icon: Info },
-  { name: "Contact Us", href: "/contact", icon: Mail },
-  { name: "FAQs", href: "/faqs", icon: HelpCircle },
+  { name: "Our Category", icon: Grid3x3 },
+  { name: "About Us", icon: Info },
+  { name: "Contact Us", icon: Mail },
+  { name: "FAQs", icon: HelpCircle },
 ];
 
 const Navbar = () => {
@@ -16,17 +27,16 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🐱</span>
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                <span className="text-2xl cursor-pointer">
+                  <img src="/logo.png" alt="Logo" />
+                </span>
               </div>
-              <span className="text-xl font-semibold text-gray-800">
-                TinyTales
-              </span>
             </div>
           </div>
 
           {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8 cursor-pointer">
             {NavLinks.map((link) => {
               const Icon = link.icon;
               return (
@@ -76,7 +86,7 @@ const Navbar = () => {
 
       {/* Mobile Demo Content */}
       <div className="bg-gray-50 py-8 text-center">
-        <p className="text-gray-500 text-sm">Demo: Click any navigation item</p>
+        <p className="text-gray-500 text-sm">Product Details</p>
       </div>
     </header>
   );

@@ -11,6 +11,7 @@ export const useRegister = () => {
     mutationFn: (userData: RegisterRequest) => registerService(userData),
     onSuccess: (userData: RegisterResponse) => {
       toast.success(userData.message);
+      localStorage.setItem("token", userData.data.token);
       router.push("/verify");
     },
   });

@@ -99,7 +99,7 @@ const Page: React.FC = () => {
       price: 45.0,
       image: "/item4.png",
     },
-        {
+    {
       id: "5",
       name: "J.VER Women's Stripe Tee Short Sleeve T-Shirts Crewne - One With",
       price: 90.0,
@@ -378,12 +378,13 @@ const Page: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-900">
             Similar items
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+
+          <div className="flex overflow-x-auto gap-5 pb-4">
             {relatedProducts.map((product) => (
               <Link
                 key={product.id}
                 href={`/product/${product.id}`}
-                className="group"
+                className="flex-shrink-0 w-[200px] sm:w-[220px] md:w-[240px] group"
               >
                 <div className="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
                   <Image

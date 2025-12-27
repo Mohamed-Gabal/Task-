@@ -99,6 +99,12 @@ const Page: React.FC = () => {
       price: 45.0,
       image: "/item4.png",
     },
+        {
+      id: "5",
+      name: "J.VER Women's Stripe Tee Short Sleeve T-Shirts Crewne - One With",
+      price: 90.0,
+      image: "/item5.png",
+    },
   ];
 
   const handleQuantityChange = (type: "increase" | "decrease"): void => {

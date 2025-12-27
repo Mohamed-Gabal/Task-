@@ -98,7 +98,7 @@ const RegisterForm = () => {
           type="submit"
           value={isPending ? "Registering..." : "Register"}
           disabled={isPending || Object.keys(errors).length > 0}
-          className={`mt-2 bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition ${isPending || Object.keys(errors).length > 0 ? "opacity-50 cursor-not-allowed " : ""}`}
+          className={`mt-2 bg-[#BE968E] text-white py-2 rounded-lg cursor-pointer hover:bg-[#A87D6E] transition ${isPending || Object.keys(errors).length > 0 ? "opacity-50 cursor-not-allowed " : ""}`}
         />
       </form>
     </div>

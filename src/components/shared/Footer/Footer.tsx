@@ -38,6 +38,7 @@ const Footer = () => {
             </p>
           </div>
 
+
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-[#FFFFFFB2] text-sm">
@@ -76,7 +77,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="w-full px-3 py-2 mb-4 text-sm text-gray-800 rounded-lg focus:outline-none"
+                className="w-full px-3 py-2 mb-3 text-sm text-gray-800 rounded-lg focus:outline-none"
               />
               <button className="w-full bg-white text-[#BE968E] font-semibold py-2 rounded-lg hover:bg-gray-200 transition">
                 Send
